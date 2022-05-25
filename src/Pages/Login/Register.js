@@ -1,19 +1,18 @@
 import React, { useRef } from 'react';
 import auth from '../../firebase.init';
-import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import Loading from '../Shared/Loading';
 import { useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const nameRef = useRef('');
     const emailRef = useRef('');
     const passwordRef = useRef('');
-    const name = nameRef.current.value;
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
     const navigate = useNavigate();
     const location = useLocation();
-
+    let from = location.state?.from?.pathname || "/";
+    const [updateProfile, updating, error] = useUpdateProfile(auth);
     const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
 
     const [
@@ -23,26 +22,28 @@ const Register = () => {
         error2,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    const handleGoogleSignUp = () => {
-        signInWithGoogle(auth);
-        if (user1) {
-            navigate('/home');
-        }
+    const handleGoogleSignIn = () => {
+        signInWithGoogle();
     }
 
-
-    const handleSignUp = (event) => {
+    const handleSignUp = async (event) => {
         event.preventDefault();
-        console.log(name, email, password);
+        const displayName = nameRef.current.value;
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
         createUserWithEmailAndPassword(email, password);
-        if (user2) {
-            navigate('/home');
-        }
+        updateProfile({ displayName });
+
     }
 
-    if (loading1 || loading2) {
-        return <Loading></Loading>
+    if (loading2 || loading1) {
+        return <Loading />
     }
+
+    if (user1 || user2) {
+        navigate(from, { replace: true });
+    }
+
 
     return (
         <div>
@@ -86,7 +87,7 @@ const Register = () => {
                 </div>
 
                 <div class="flex items-center mt-6 -mx-2">
-                    <button type="button"
+                    <button onClick={handleGoogleSignIn} type="button"
                         class="flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:bg-blue-400 focus:outline-none">
                         <svg class="w-4 h-4 mx-2 fill-current" viewBox="0 0 24 24">
                             <path
@@ -107,8 +108,8 @@ const Register = () => {
                     </a>
                 </div>
 
-                <p class="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <a href="#"
-                    class="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></p>
+                <p class="mt-8 text-xs font-light text-center text-gray-400"> Already have an account? <Link to={'/login'}
+                    class="font-medium text-gray-700 dark:text-gray-200 hover:underline">Click here to Login</Link></p>
             </div>
         </div>
     );
