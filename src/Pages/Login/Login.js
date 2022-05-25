@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import Loading from '../Shared/Loading';
 
 const Login = () => {
     const location = useLocation();
@@ -9,9 +12,33 @@ const Login = () => {
     const emailRef = useRef('');
     const passwordRef = useRef('');
 
+    const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    const handleGoogleSignUp = () => {
+        signInWithGoogle(auth);
+        if (user1) {
+            navigate('/home');
+        }
+    }
+
+
     const handleUserSignIn = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
+        signInWithEmailAndPassword(email, password);
+        if (loading) {
+            return <Loading></Loading>
+        }
+        if (user) {
+            navigate('/home');
+        }
     }
 
     return (

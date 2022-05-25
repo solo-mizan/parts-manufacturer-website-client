@@ -1,31 +1,47 @@
 import React, { useRef } from 'react';
 import auth from '../../firebase.init';
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import Loading from '../Shared/Loading';
+import { useLocation, useNavigate } from 'react-router';
 
 const Register = () => {
     const nameRef = useRef('');
     const emailRef = useRef('');
     const passwordRef = useRef('');
-    const [user, loading, error] = useAuthState(auth);
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
 
     const [
         createUserWithEmailAndPassword,
-        user1,
-        loading1,
-        error1,
+        user2,
+        loading2,
+        error2,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const handleGoogleSignUp = () => {
+        signInWithGoogle(auth);
+        if (user1) {
+            navigate('/home');
+        }
+    }
+
 
     const handleSignUp = (event) => {
         event.preventDefault();
-        const name = nameRef.current.value;
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
         console.log(name, email, password);
         createUserWithEmailAndPassword(email, password);
+        if (user2) {
+            navigate('/home');
+        }
     }
 
-    if(loading || loading1){
-        
+    if (loading1 || loading2) {
+        return <Loading></Loading>
     }
 
     return (
@@ -34,7 +50,7 @@ const Register = () => {
             <div class="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800">
                 <h1 class="text-3xl font-semibold text-center text-gray-700 dark:text-white">Brand</h1>
 
-                <form onClick={handleSignUp} class="mt-6">
+                <form class="mt-6">
                     <div>
                         <label for="name" class="block text-sm text-gray-800 dark:text-gray-200">Name</label>
                         <input ref={nameRef} type="text"
@@ -57,10 +73,7 @@ const Register = () => {
                     </div>
 
                     <div class="mt-6">
-                        <button
-                            class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-                            Sign Up
-                        </button>
+                        <input onClick={handleSignUp} type="submit" value="Sign Up" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600" />
                     </div>
                 </form>
 
