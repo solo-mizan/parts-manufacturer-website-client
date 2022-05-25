@@ -4,10 +4,9 @@ import Logo from '../../Assets/Logo SVG.svg';
 
 const Navbar = () => {
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-200">
             <div className="flex-1">
-                <a className="btn btn-ghost normal-case text-xl">Car Geeks</a>
-                <img src={Logo} className="w-16" alt="" />
+                <Link to={'/home'}><img src={Logo} className="w-16" alt="" /></Link>
             </div>
             <div className="flex-none">
                 <div className="dropdown dropdown-end">
@@ -41,7 +40,7 @@ const Navbar = () => {
                             </a>
                         </li>
                         <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        <li><Link to={'/login'}>Login</Link></li>
                     </ul>
                 </div>
             </div>
