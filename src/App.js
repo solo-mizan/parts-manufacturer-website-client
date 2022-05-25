@@ -1,11 +1,17 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router';
 import './App.css';
+import Footer from './Pages/Shared/Footer';
+import Navbar from './Pages/Shared/Navbar';
 
 function App() {
   return (
-    <div>
-  
-    </div>
+    <>
+    <Navbar></Navbar>
+  <Routes>
+    <Route></Route>
+  </Routes>
+  <Footer></Footer>
+    </>
   );
 }
 

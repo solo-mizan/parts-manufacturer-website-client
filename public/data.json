@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Titanium Piston",
+        "price": "165",
+        "description": "iston Clocks with Personalized Plaque! Made from a genuine car piston. Purchase this unique clock for your home or office or as a gift for any car enthusiast! Let me know if you are looking for a piston from a specific car and we can try to source that specific car piston!",
+        "image": "https://ibb.co/jVzJ5bt",
+        "minOrder": "50",
+        "avlQuantity": "2000",
+        "data1": ""
+    },
+    {
+        "name": "Premium Oil Filter",
+        "price": "7",
+        "description": "Extra Guard is the perfect filter for everyday drivers who perform oil changes at OE recommended intervals. Extra Guard has cellulose and glass blended media that provides advanced engine protection for your vehicle. Engineered with a silicone anti-drain back valve, FRAM Extra Guard Oil Filters meet all manufacturer’s recommended change intervals.",
+        "image": "https://ibb.co/Jq8w2dd",
+        "minOrder": "500",
+        "avlQuantity": "40000",
+        "data1": ""
+    },
+    {
+        "name": "Bright Led Light",
+        "price": "12",
+        "description": "Products with electrical plugs are designed for use in the US. Outlets and voltage differ internationally and this product may require an adapter or converter for use in your destination. Please check compatibility before purchasing.",
+        "image": "https://ibb.co/TBZX7rY",
+        "minOrder": "100",
+        "avlQuantity": "10000",
+        "data1": ""
+    }
+]
