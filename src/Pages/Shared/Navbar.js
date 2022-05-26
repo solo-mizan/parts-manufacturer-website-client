@@ -16,6 +16,9 @@ const Navbar = () => {
             <div className="flex-1">
                 <Link to={'/home'}><img src={Logo} className="w-16" alt="" /></Link>
             </div>
+            <div>
+                <Link to={'/blog'}>Blogs</Link>
+            </div>
             <div className="flex-none">
                 <div className="dropdown dropdown-end">
                     <label tabindex="0" className="btn btn-ghost btn-circle">

@@ -1,14 +1,12 @@
 import React, { useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useNavigate } from 'react-router';
 
 const Tool = ({ tool }) => {
-    const { name, image, description, minOrder, avlQuantity, price } = tool;
-
-    const valueRef = useRef('minOrder');
+    const { name, image, description, minOrder, avlQuantity, price, _id } = tool;
+    const navigate = useNavigate();
 
     const handlePurchase = () => {
-        const orderValue = valueRef.current.value;
-        console.log(orderValue);
+        navigate(`/product/${_id}`);
     }
 
     return (
@@ -16,16 +14,15 @@ const Tool = ({ tool }) => {
         <div class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
             <img class="object-cover object-center w-full h-56" src={image} alt="avatar" />
             <div class="flex items-center px-6 py-3 bg-gray-900">
-                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-                </svg>
+                </svg> */}
 
-                <h1 class="mx-3 text-lg font-semibold text-white">{name}</h1>
-                <i class="fa-duotone fa-hand-wave"></i>
+                <h1 class="mx-3 text-2xl text-center font-semibold text-white">{name}</h1>
             </div>
 
             <div class="px-6 py-4">
-                <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
+                {/* <h1 class="text-2xl text-center font-semibold text-gray-800 dark:text-white">Patterson johnson</h1> */}
 
                 <p class="py-2 text-gray-700 dark:text-gray-400">{description.slice(0, 200) + '...'}</p>
 
@@ -51,14 +48,8 @@ const Tool = ({ tool }) => {
                     </svg>
                     <h1 class="px-2 text-sm">Available Stock: {avlQuantity} pcs</h1>
                 </div>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Enter amount</span>
-                    </label>
-                    <label onClick={handlePurchase} class="input-group">
-                        <input type="number" ref={valueRef} placeholder={minOrder} class="input input-bordered" />
-                        <span>Purchase</span>
-                    </label>
+                <div className='justify-center mx-auto items-center m-4'>
+                    <button onClick={handlePurchase} className='btn btn-outline w-3/4 mx-auto text-lg flex'>Purchase</button>
                 </div>
             </div>
         </div>
