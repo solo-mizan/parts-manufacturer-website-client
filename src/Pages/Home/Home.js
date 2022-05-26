@@ -5,6 +5,7 @@ import Stats from './Stats';
 import Tools from './Tools';
 
 const Home = () => {
+
     return (
         <div>
             <Banner></Banner>
