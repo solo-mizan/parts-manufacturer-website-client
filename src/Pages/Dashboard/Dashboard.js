@@ -20,8 +20,8 @@ const Dashboard = () => {
         <div className="drawer drawer-mobile">
         <input id="dashboard" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
-            <div className='flex justify-between items-center px-5 text-accent'>
-                <h3 className='text-2xl my-5'>Welcome to your dashboard.</h3>
+            <div className='px-5'>
+                <h3 className='text-4xl text-center text-purple-500 my-5'>Car Geeks Dashboard</h3>
                 <label htmlFor="dashboard" className=" lg:hidden"><FontAwesomeIcon icon={faBars}></FontAwesomeIcon></label>
             </div>
             <Outlet></Outlet>
