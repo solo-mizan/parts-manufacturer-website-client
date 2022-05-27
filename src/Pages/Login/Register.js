@@ -4,6 +4,7 @@ import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, u
 import Loading from '../Shared/Loading';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import useToken from '../hooks/useToken';
 
 const Register = () => {
     const nameRef = useRef('');
@@ -12,7 +13,6 @@ const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
-    const [updateProfile, updating, error] = useUpdateProfile(auth);
     const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
 
     const [
@@ -21,6 +21,10 @@ const Register = () => {
         loading2,
         error2,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [updateProfile, updating, error] = useUpdateProfile(auth);
+
+    const [token] = useToken(user1 || user2);
 
     const handleGoogleSignIn = () => {
         signInWithGoogle();

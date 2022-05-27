@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
+import useToken from '../hooks/useToken';
 
 const Login = () => {
     const location = useLocation();
@@ -19,6 +20,8 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
     const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
+
+    const [token] = useToken(user || user1);
 
     const handleGoogleSignIn = async () => {
         await signInWithGoogle();
