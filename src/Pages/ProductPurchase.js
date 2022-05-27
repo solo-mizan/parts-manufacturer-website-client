@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import Loading from './Shared/Loading';
@@ -12,8 +12,9 @@ const ProductPurchase = () => {
         return <Loading />
     }
     const { name, image, description, minOrder, avlQuantity, price, _id } = item;
-    const handlePurchase = () => {
-
+    const handlePurchase = (event) => {
+        const quantity = event.name.current.value;
+        console.log(quantity);
     }
     return (
         <div>
@@ -28,10 +29,12 @@ const ProductPurchase = () => {
                     <div class="card-actions justify-end">
                         <div class="form-control">
                             <div class="input-group">
-                                <input type="number" placeholder={minOrder} class="input input-bordered" />
-                                <button class="btn btn-square">
+                                <input name="quantity" type="number" placeholder={minOrder} class="input input-bordered" />
+                                {/* {f > minOrder ? <button class="btn btn-square">
                                     Buy
-                                </button>
+                                </button> : <button class="btn btn-square disabled">
+                                    Buy
+                                </button>} */}
                             </div>
                         </div>
                     </div>

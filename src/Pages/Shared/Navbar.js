@@ -10,14 +10,25 @@ const Navbar = () => {
     const logout = () => {
         signOut(auth);
     };
-
     return (
         <div className="navbar bg-base-200">
             <div className="flex-1">
                 <Link to={'/home'}><img src={Logo} className="w-16" alt="" /></Link>
             </div>
             <div>
-                <Link to={'/blog'}>Blogs</Link>
+
+                <Link className='m-3' to={'/blog'}>Blogs</Link>
+                {
+                    user ? <Link className='m-3' to={'/dashboard'}>Dashboard</Link>
+                        :
+                        <Link className='m-3' to={'/login'}>Login</Link>
+                }
+                {
+                    user ? <Link className='m-3' to={'/portfolio'}>{user.displayName}</Link>
+                        :
+                        <Link className='m-3' to={'/register'}>Register</Link>
+                }
+
             </div>
             <div className="flex-none">
                 <div className="dropdown dropdown-end">
@@ -40,7 +51,11 @@ const Navbar = () => {
                 <div className="dropdown dropdown-end">
                     <label tabindex="0" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img src="https://api.lorem.space/image/face?hash=33791" />
+                            {
+                                user?.photoURL ? <img src={user?.photoURL} alt="" />
+                                    :
+                                    <img src="https://api.lorem.space/image/face?hash=33791" alt='' />
+                            }
                         </div>
                     </label>
                     <ul tabindex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
