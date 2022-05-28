@@ -66,7 +66,7 @@ const Myprofile = () => {
                     <label className="label">
                         <span className="label-text text-xl">Name</span>
                     </label>
-                    <input {...register("name")} type="text" disabled defaultValue={`${user.displayName}`} className="input input-bordered w-full max-w-sm" />
+                    <input {...register("name")} type="text" defaultValue={`${user.displayName}`} className="input input-bordered w-full max-w-sm" />
                     <label className="label">
                         <span className="label-text text-xl">Email</span>
                     </label>
@@ -97,7 +97,7 @@ const Myprofile = () => {
                     <input placeholder='https://www.facebook.com/solo.mizan' {...register("linkedin", {
                         required: "Facebook ID is required"
                     })} defaultValue={storedData?.linkedin} type="url" className="input input-bordered w-full max-w-sm" />
-                    <input type="submit" value="Save" className="my-5 btn btn-accent w-full max-w-xs" />
+                    <input type="submit" value="Save" className="my-5 btn w-full max-w-sm" />
                 </div>
             </form>
         </div>

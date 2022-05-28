@@ -106,7 +106,7 @@ const Addproduct = () => {
                     </label>
                     <input placeholder='https://photoExample.com' {...register("image", { required: "Image is required" })} type="url" className="input input-bordered w-full max-w-sm" />
                 </div>
-                <input type="submit" value="Add Product" className="input input-bordered w-full max-w-xs" />
+                <input type="submit" value="Add Product" className="w-full max-w-sm btn btn-secondary my-5" />
             </form>
         </div>
     );

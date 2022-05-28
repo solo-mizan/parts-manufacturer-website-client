@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const ProductDeleteModal = ({ deleteProduct, refetch, setDeleteProduct }) => {
     const { name, _id } = deleteProduct;
     const handleDelete = id => {
-        fetch(`http://loclhost:5000/product/${id}`, {
+        fetch(`http://localhost:5000/tool/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json"

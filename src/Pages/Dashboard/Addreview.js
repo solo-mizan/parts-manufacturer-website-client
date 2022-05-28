@@ -43,7 +43,7 @@ const Addreview = () => {
     return (
         <div className='p-5'>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-control w-full max-w-sm">
+                <div className="form-control w-full max-w-sm mx-auto">
                     <label className="label">
                         <span className="label-text text-xl">Review</span>
                     </label>
@@ -60,7 +60,7 @@ const Addreview = () => {
                         <option value={4}>4</option>
                         <option value={5}>5</option>
                     </select>
-                    <input type="submit" value="Post review" className="my-5 btn btn-accent w-full max-w-xs" />
+                    <input type="submit" value="Submit Review" className="my-5 mx-auto btn btn-accent w-full max-w-sm" />
                 </div>
             </form>
         </div>
