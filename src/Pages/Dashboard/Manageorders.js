@@ -8,7 +8,7 @@ const Manageorders = () => {
 
 
 
-    const { data: orders, isLoading, refetch } = useQuery("allorders", () => fetch("http://localhost:5000/order", {
+    const { data: orders, isLoading, refetch } = useQuery("allorders", () => fetch("https://car-geeks.heroku.com/order", {
         method: "GET",
         headers: {
             "Content-type": "application/json",
@@ -33,10 +33,10 @@ const Manageorders = () => {
                 </thead>
                 <tbody>
                     {
-                       orders.map((order, index) => <OrdersRow key={order._id}
-                       index={index}
-                       order={order}
-                       refetch={refetch}></OrdersRow>)
+                        orders.map((order, index) => <OrdersRow key={order._id}
+                            index={index}
+                            order={order}
+                            refetch={refetch}></OrdersRow>)
                     }
                 </tbody>
             </table>

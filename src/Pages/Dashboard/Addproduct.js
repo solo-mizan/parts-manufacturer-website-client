@@ -39,7 +39,7 @@ const Addproduct = () => {
         }
         console.log(body);
 
-        fetch('http://localhost:5000/tools', {
+        fetch('https://car-geeks.heroku.com/tools', {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

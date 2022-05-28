@@ -9,11 +9,11 @@ import auth from '../../firebase.init';
 const Manageproducts = () => {
     const [deleteProduct, setDeleteProduct] = useState(null);
     const [user, loading] = useAuthState(auth);
-    const { data: products, isLoading, refetch } = useQuery("products", () => fetch("http://localhost:5000/tools").then(res => res.json()));
+    const { data: products, isLoading, refetch } = useQuery("products", () => fetch("https://car-geeks.heroku.com/tools").then(res => res.json()));
     if (isLoading || loading) {
         return <Loading></Loading>
     }
-    
+
     return (
         <div className="overflow-x-auto">
             <table className="table w-full">

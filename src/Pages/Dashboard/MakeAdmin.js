@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import UserRow from './UserRow';
 
 const MakeAdmin = () => {
-    const { data: users, isLoading, refetch } = useQuery("alluser", () => fetch("http://localhost:5000/user", {
+    const { data: users, isLoading, refetch } = useQuery("alluser", () => fetch("https://car-geeks.heroku.com/user", {
         method: "GET",
         headers: {
             "Content-type": "application/json",

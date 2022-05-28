@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const OrderCancelModal = ({ orderCancel, setOrderCancel, refetch }) => {
     const handleCancel = id => {
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://car-geeks.heroku.com/order/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json",

@@ -10,7 +10,7 @@ const Myprofile = () => {
     const [storedData, setStoredData] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://car-geeks.heroku.com/user/${user.email}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -45,7 +45,7 @@ const Myprofile = () => {
             phone: data.phone,
             linkedin: data.linkedin
         }
-        fetch(`http://localhost:5000/profile/${user.email}`, {
+        fetch(`https://car-geeks.heroku.com/profile/${user.email}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json"

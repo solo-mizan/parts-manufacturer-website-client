@@ -24,7 +24,7 @@ const Addreview = () => {
             review: data.review,
             rating: data.rating
         };
-        fetch('http://localhost:5000/review', {
+        fetch('https://car-geeks.heroku.com/review', {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
