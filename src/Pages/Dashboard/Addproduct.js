@@ -2,7 +2,6 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import auth from '../../firebase.init';
 
 const Addproduct = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -56,7 +55,7 @@ const Addproduct = () => {
             })
     }
     return (
-        <div className='p-5 justify-center mx-auto'>
+        <div className='p-5 lg:w-1/2 mx-auto'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-control w-full max-w-sm">
                     <label className="label">

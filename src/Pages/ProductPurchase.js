@@ -1,43 +1,116 @@
-import React, { useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
+import auth from '../firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from './Shared/Loading';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const ProductPurchase = () => {
     const { id } = useParams();
+    const [user, loading] = useAuthState(auth);
+    const { data: tool, isLoading, refetch } = useQuery("tool", () => fetch(`http://localhost:5000/itemDetail/${id}`).then(res => res.json()))
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    if (isLoading || loading) {
+        return <Loading></Loading>
+    };
 
-    const { data: item, isLoading, refetch } = useQuery('itemDetail', () => fetch(`http://localhost:5000/itemDetail/${id}`)
-        .then(res => res.json()));
-    if (isLoading) {
-        return <Loading />
+    const { name, minOrder, price, avlQuantity, image, description, _id } = tool;
+
+    if (errors) {
+        if (errors?.quantity) {
+            toast.error(`${errors.quantity.message}`, { id: "stockError" });
+        }
+        if (errors?.phone) {
+            toast.error(`${errors.phone.message}`, { id: "phoneError" });
+        }
+        if (errors?.address) {
+
+            toast.error(`${errors.address.message}`, { id: "addressError" })
+        }
     }
-    const { name, image, description, minOrder, avlQuantity, price, _id } = item;
-    const handlePurchase = (event) => {
-        const quantity = event.name.current.value;
-        console.log(quantity);
+    const onSubmit = data => {
+        const quantity = data.orderQuantity;
+        const body = {
+            productId: _id,
+            name: tool.name,
+            userName: user.displayName,
+            userEmail: user.email,
+            quantity: quantity,
+            totalPrice: price * quantity,
+            phone: data.phone,
+            address: data.address,
+            payment: "unpaid"
+        };
+        fetch(`http://localhost:5000/order`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    toast.success('Order placed susccessfully!');
+                    refetch();
+                }
+            })
     }
     return (
-        <div>
-            <div class="card lg:card-side bg-base-100 shadow-xl w-1/2 mx-auto h-3/5">
-                <figure><img src={image} alt="Album" /></figure>
-                <div class="card-body w-1/2">
-                    <h2 class="card-title">{name}</h2>
-                    <p>{description}</p>
-                    <h3 className='text-xl'>Price: ${price}</h3>
-                    <h4>Minimum Order Quantity: {minOrder} pcs</h4>
-                    <h4>Available Quantity: {avlQuantity} pcs</h4>
-                    <div class="card-actions justify-end">
-                        <div class="form-control">
-                            <div class="input-group">
-                                <input name="quantity" type="number" placeholder={minOrder} class="input input-bordered" />
-                                {/* {f > minOrder ? <button class="btn btn-square">
-                                    Buy
-                                </button> : <button class="btn btn-square disabled">
-                                    Buy
-                                </button>} */}
-                            </div>
+        <div className='min-h-screen w-full md:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center'>
+            <div>
+                <img className='w-80 mx-auto' src={image} alt="" />
+                <div className='p-5'>
+                    <p className='py-2 text-3xl font-semibold'>{name}</p>
+                    <p className='py-2'>{description}</p>
+                    <p className='text-lg font-semibold'>Price: ${price}</p>
+                    <p className='text-lg font-semibold'>Available: {avlQuantity} pcs</p>
+                    <p className='text-lg font-semibold'>Min Order: {minOrder} pcs</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="form-control w-full max-w-sm">
+                            <label className="label">
+                                <span className="label-text text-xl">Name</span>
+                            </label>
+                            <input {...register("name")} type="text" disabled defaultValue={`${user.displayName}`} className="input input-bordered w-full max-w-sm" />
+                            <label className="label">
+                                <span className="label-text text-xl">Email</span>
+                            </label>
+                            <input {...register("email"
+                            )} type="email" defaultValue={`${user.email}`} disabled className="input input-bordered w-full max-w-sm" />
+                            <label className="label">
+                                <span className="label-text text-xl">Order Quantity</span>
+                            </label>
+                            <input {...register("orderQuantity", {
+                                valueAsNumber: true,
+                                required: "Order quantity is required", min: {
+                                    value: `${minOrder}`,
+                                    message: "Minimum purchase amount required"
+                                }, max: {
+                                    value: `${avlQuantity}`,
+                                    message: "Stock not available"
+                                }
+                            })} type="number" defaultValue={`${minOrder}`} className="input input-bordered w-full max-w-sm" />
+                            <label className="label">
+                                <span className="label-text text-xl">Phone Number</span>
+                            </label>
+                            <input {...register("phone", {
+                                valueAsNumber: true,
+                                required: "Phone number is required"
+                            })} type="number" className="input input-bordered w-full max-w-sm" />
+                            <label className="label">
+                                <span className="label-text text-xl">Shipping Address</span>
+                            </label>
+                            <input {...register("address", {
+                                required: "Address is required"
+                            })} type="text" className="input input-bordered w-full max-w-sm" />
+                            <input type="submit" value="Order" disabled={errors?.quantity} className="my-5 btn btn-light w-full max-w-lg" />
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

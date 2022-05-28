@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Routes } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Blog from './Pages/Blog';
 import Addproduct from './Pages/Dashboard/Addproduct';
@@ -19,6 +20,7 @@ import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
 import NotFound from './Pages/Shared/NotFound';
 import RequireAuth from './Pages/Shared/RequireAuth';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const queryClient = new QueryClient();
@@ -32,7 +34,7 @@ function App() {
           <Route path='/login' element={<Login></Login>}></Route>
           <Route path='/register' element={<Register></Register>}></Route>
           <Route path='/blog' element={<Blog></Blog>}></Route>
-          <Route path='/product/:id' element={<ProductPurchase />}></Route>
+          <Route path='/order/:id' element={<RequireAuth><ProductPurchase /></RequireAuth>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
           <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
             <Route index element={<Myprofile></Myprofile>}></Route>
@@ -45,6 +47,7 @@ function App() {
           </Route>
         </Routes>
         <Footer></Footer>
+        <ToastContainer></ToastContainer>
       </QueryClientProvider>
     </>
   );
