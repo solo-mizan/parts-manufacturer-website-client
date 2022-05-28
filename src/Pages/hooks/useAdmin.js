@@ -9,8 +9,7 @@ const useAdmin = (user) => {
             fetch(`http://localhost:5000/admin/${email}`, {
                 method: 'GET',
                 headers: {
-                    'content-type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    'content-type': 'application/json'
                 }
             })
                 .then(res => res.json())

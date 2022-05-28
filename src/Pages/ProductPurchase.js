@@ -10,7 +10,7 @@ const ProductPurchase = () => {
     const { id } = useParams();
     const [user, loading] = useAuthState(auth);
     const { data: tool, isLoading, refetch } = useQuery("tool", () => fetch(`http://localhost:5000/itemDetail/${id}`).then(res => res.json()))
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     if (isLoading || loading) {
         return <Loading></Loading>
     };
@@ -53,6 +53,7 @@ const ProductPurchase = () => {
             .then(data => {
                 if (data.insertedId) {
                     toast.success('Order placed susccessfully!');
+                    reset();
                     refetch();
                 }
             })
