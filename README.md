@@ -1,6 +1,6 @@
 # Car Geeks Parts Manufacture
 
-## Project live link [Netlify hosted](https://car-geeks-bd.netlify.app/)
+## Project live link [Netlify hosted](https://red-wheels.netlify.app/)
 
 ## Project code link [Github link client side](https://github.com/programming-hero-web-course1/manufacturer-website-client-side-solo-mizan)
 
