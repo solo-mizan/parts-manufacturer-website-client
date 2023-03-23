@@ -21,12 +21,14 @@ import Navbar from './Pages/Shared/Navbar';
 import NotFound from './Pages/Shared/NotFound';
 import RequireAuth from './Pages/Shared/RequireAuth';
 import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const queryClient = new QueryClient();
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        <Toaster></Toaster>
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home></Home>}></Route>

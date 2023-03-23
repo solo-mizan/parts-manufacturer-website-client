@@ -5,6 +5,7 @@ import Loading from '../Shared/Loading';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const nameRef = useRef('');
@@ -28,6 +29,7 @@ const Register = () => {
 
     const handleGoogleSignIn = () => {
         signInWithGoogle();
+        toast.success("Google login successful!");
     }
 
     const handleSignUp = async (event) => {
@@ -37,6 +39,7 @@ const Register = () => {
         const password = passwordRef.current.value;
         createUserWithEmailAndPassword(email, password);
         updateProfile({ displayName });
+        toast.success("Register successful!");
 
     }
 

@@ -5,6 +5,7 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import useToken from '../hooks/useToken';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const location = useLocation();
@@ -25,12 +26,14 @@ const Login = () => {
 
     const handleGoogleSignIn = async () => {
         await signInWithGoogle();
+        toast.success("Google login successful!");
     }
 
     const handleUserSignIn = async () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         await signInWithEmailAndPassword(email, password);
+        toast.success("Login successful!");
     }
 
     if (loading || loading1) {
